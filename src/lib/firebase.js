@@ -22,5 +22,4 @@ const db = getFirestore(firebase)
 // seedDatabase(firebase)
 
 
-
 export { firebase, FieldValue, auth, db};

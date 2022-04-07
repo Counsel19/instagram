@@ -5,28 +5,37 @@ import useUser from "../../hooks/use-user";
 import Suggestion from "./Suggestion";
 import User from "./User";
 
+
 const Sidebar = () => {
-  const [fullname, setFullname] = useState("");
+  const [fullName, setFullName] = useState("");
   const [username, setUsername] = useState("");
   const [userId, setUserId] = useState("");
+  const [following, setFollowing] = useState([]);
+  const [loggedInUserDocId, setLoggedInUserDocId] = useState("");
+
 
   const { user } = useUser();
 
-  console.log("user--index", user);
-
   useEffect(() => {
-    if (user !== (undefined || {})) {
-      const { fullname, username, userId } = user;
-      setFullname(fullname);
+
+    if (Object.keys(user).length !== 0) {
+    
+      const { fullName, username, userId, following, userDocId } = user;
+      setFullName(fullName);
       setUsername(username);
       setUserId(userId);
+      setFollowing(following)
+      setLoggedInUserDocId(userDocId)
+
+
     }
   }, [user]);
 
+
   return (
-    <div className="p-4">
-      <User username={username} fullname={fullname} />
-      <Suggestion userId={userId} />
+    <div className="p-4 col-span-3 h-full md:col-span-1">
+      <User username={username} fullName={fullName}/>
+      <Suggestion loginUserId={userId} loggedInUserDocId ={loggedInUserDocId} following={following}/>
     </div>
   );
 };
