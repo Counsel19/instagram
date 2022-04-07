@@ -16,15 +16,16 @@
     "react-icons": "^4.3.1",
     "react-loading-skeleton": "^3.0.3",
     "react-router-dom": "^6.2.2",
-    "react-scripts": "5.0.0",
+    "react-scripts": "^5.0.0",
+    "react-spinner-animated": "^3.1.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "build:css": "postcss src/styles/tailwind.css -o src/styles/app.css",
     "watch:css": "postcss src/styles/tailwind.css -o src/styles/app.css --watch",
-    "react-scripts:start": "timeout /t 5 /nobreak > NUL && react-scripts start",
+    "react-scripts:start": "timeout /t 2 /nobreak > NUL && react-scripts start",
     "start": "run-p watch:css react-scripts:start",
-    "build": "run-s watch:css react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

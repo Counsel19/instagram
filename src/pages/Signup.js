@@ -13,7 +13,7 @@ const Signup = () => {
 
   const [emailAddress, setEmailAddress] = useState("");
   const [username, setUsername] = useState("");
-  const [fullname, setFullname] = useState("");
+  const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -22,7 +22,7 @@ const Signup = () => {
     password === "" ||
     emailAddress === "" ||
     username === "" ||
-    fullname === "";
+    fullName === "";
 
   useEffect(() => {
     document.title = "Signup - Instagram";
@@ -51,7 +51,7 @@ const Signup = () => {
         addDoc(collection(db, "users"), {
           userId: createdUserResult.user.uid,
           username: username.toLowerCase(),
-          fullname: fullname,
+          fullName: fullName,
           emailAddress: emailAddress,
           following: [],
           followers: [],
@@ -62,7 +62,7 @@ const Signup = () => {
         setUsername("");
         setEmailAddress("");
         setPassword("");
-        setFullname("");
+        setFullName("");
         setError(error.message);
         setLoading(false);
       }
@@ -74,10 +74,10 @@ const Signup = () => {
 
   return (
     <div className="container flex mx-auto justify-center my-9 max-w-screen-md items-center h-screen ">
-      <div className="flex w-4/6">
+      <div className="hidden w-4/6 md:flex">
         <img src="/images/iphone-with-profile.jpg" alt="Iphone with profile" />
       </div>
-      <div className="flex w-3/6 flex-col">
+      <div className="flex w-5/6 flex-col md:w-3/6">
         <div className="flex flex-col bg-white p-8 border border-gray-primary">
           <h1 className="flex justify-center w-full">
             <img
@@ -98,13 +98,13 @@ const Signup = () => {
             </Link>
           </p>
           <div className="flex w-full mt-4 mb-4 items-center justify-center">
-            <p className="w-2/5 border border-b-2 border-solid border-gray-primary">
+            <p className="w-2/5  border-b border-gray-primary">
               {" "}
             </p>
             <p className="text-sm text-gray-base text-bold w-1/5 text-center">
               OR
             </p>
-            <p className="w-2/5 border border-b-2 border-gray-primary"> </p>
+            <p className="w-2/5  border-b border-gray-primary"> </p>
           </div>
           {error && <p className="mb-4 text-red-primary">{error}</p>}
 
@@ -122,8 +122,8 @@ const Signup = () => {
               type="text"
               placeholder="Full Name"
               className="text-sm text-gray-base w-full mr-3 py-4 px-2 h-9 border border-gray-primary rounded mb-2 outline-0"
-              value={fullname}
-              onChange={({ target }) => setFullname(target.value)}
+              value={fullName}
+              onChange={({ target }) => setFullName(target.value)}
             />
             <input
               arial-label="Enter your username"

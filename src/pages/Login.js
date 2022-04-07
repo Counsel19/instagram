@@ -1,3 +1,4 @@
+
 import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import FirebaseContext from "../context/firebase";
@@ -37,11 +38,11 @@ const Login = () => {
   };
 
   return (
-    <div className="container flex mx-auto max-w-screen-md items-center h-screen ">
-      <div className="flex w-4/6">
+    <div className="container flex mx-auto max-w-screen-md items-center justify-center h-screen ">
+      <div className="hidden w-4/6 md:flex">
         <img src="/images/iphone-with-profile.jpg" alt="Iphone with profile" />
       </div>
-      <div className="flex w-3/6 flex-col">
+      <div className="flex w-5/6 flex-col md:w-3/6">
         <div className="flex flex-col bg-white p-8 border border-gray-primary">
           <h1 className="flex justify-center w-full">
             <img
@@ -81,13 +82,13 @@ const Login = () => {
             </button>
           </form>
           <div className="flex w-full mt-4 items-center justify-center">
-            <p className="w-2/5 border border-b-2 border-solid border-gray-primary">
+            <p className="w-2/5  border-b border-gray-primary">
               {" "}
             </p>
             <p className="text-sm text-gray-base text-bold w-1/5 text-center">
               OR
             </p>
-            <p className="w-2/5 border border-b-2 border-gray-primary"> </p>
+            <p className="w-2/5  border-b border-gray-primary"> </p>
           </div>
           <p className="flex justify-center pt-6 items-center text-blue-medium">
             <AiFillFacebook className="text-xl mr-2"/> {` `}

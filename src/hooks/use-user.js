@@ -14,6 +14,7 @@ const useUser = () => {
 
             return response;
         }
+
         if(user?.uid){
             const result = getUserObjByUserId(user)
 
@@ -21,7 +22,8 @@ const useUser = () => {
         }
     }, [user])
 
-    
+ 
+
     return { user: activeUser }
 }
 

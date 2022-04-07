@@ -1,33 +1,35 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import FirebaseContext from "../context/firebase";
 import UserContext from "../context/user";
 import * as ROUTES from "../contants/routes";
 import { signOut } from "firebase/auth";
 
-
-const Header = () => {
-
+const Header = ({ active, setActive }) => {
   const { auth } = useContext(FirebaseContext);
   const { user } = useContext(UserContext);
-  const [active, setActive] = useState(false);
 
   return (
-    <header className="h-16 bg-white border-b border-gray-primary mb-8">
-      <div className="container mx-auto max-w-screen-lg h-full">
-        <div className="flex justify-between h-full">
-          <div className=" text-center flex items-center align-items cursor-pointer ">
+    <header className=" top-0 w-full h-12 bg-white border-b border-gray-primary mb-8 md:h-16">
+      <div className="container mx-auto max-w-screen-lg h-full relative">
+        <div className="flex justify-center items-center h-full md:justify-between">
+          <div className="flex items-center justify-center align-items cursor-pointer md:w-fit">
             <h1 className="flex justify-center w-full">
-              <Link to={ROUTES.DASHBOARD} aria-label="Instagram logo">
+              <Link
+                to={ROUTES.DASHBOARD}
+                aria-label="Instagram logo"
+                className="flex justify-center md:justify-start"
+              >
                 <img
                   src="/images/logo.png"
                   alt="logo"
-                  className="mt-2 w-6/12"
+                  className="mt-2 w-6/12 "
                 />
               </Link>
             </h1>
           </div>
-          <div className=" text-center flex items-center align-items">
+          <div className="fixed bottom-0 flex h-12 w-full bg-white border-t border-gray-primary justify-around text-center  items-center align-items md:w-fit md:static md:border-none ">
             {user ? (
               <>
                 <Link to={ROUTES.DASHBOARD}>
@@ -57,8 +59,8 @@ const Header = () => {
                     strokeWidth={2}
                   >
                     <path
-                       strokeLinecap="round"
-                       strokeLinejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                     />
                   </svg>
@@ -81,7 +83,7 @@ const Header = () => {
                 </Link>
                 <Link to="/">
                   <svg
-                    className="w-7 mr-6 text-black-light cursor-pointer"
+                    className="w-7 mr-6 text-black-light cursor-pointer hidden md:inline"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -89,8 +91,8 @@ const Header = () => {
                     strokeWidth={2}
                   >
                     <path
-                       strokeLinecap="round"
-                       strokeLinejoin="round"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                       d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
                     />
                   </svg>
@@ -113,16 +115,31 @@ const Header = () => {
                 </Link>
 
                 <div className="relative inline-block text-left">
-                  <div onClick={() => setActive(!active)} className="cursor-pointer rounded-full h-8 w-8 inline-flex justify-center border border-gray-primary shadow-sm bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+                  <div
+                    onClick={() => setActive(!active)}
+                    className="cursor-pointer rounded-full h-8 w-8 inline-flex justify-center border border-gray-primary shadow-sm bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
+                  >
                     <img
-                    className="rounded-full"
-                      id="menu-button"
-                      src={`/images/avatars/${user.displayName}.jpg`}
-                      alt={`${user.displayName} profile`}
-                    />
+                        className="rounded-full hidden md:block"
+                        id="menu-button"
+                        src={`/images/avatars/${user.displayName === "counsel" || user.displayName === "orwell" || user.displayName === "fred" || user.displayName === "dali" || user.displayName === "steve"  ? `${user.displayName}.jpg` : "default.png"}`}
+                        alt={`${user.displayName} profile`}
+                      />
+                    <Link to={`/p/${user.displayName}`} className="md:hidden" >
+                      <img
+                        className="rounded-full"
+                        id="menu-button"
+                        src={`/images/avatars/${user.displayName === "counsel" || user.displayName === "orwell" || user.displayName === "fred" || user.displayName === "dali" || user.displayName === "steve"  ? `${user.displayName}.jpg` : "default.png"}`}
+                        alt={`${user.displayName} profile`}
+                      />
+                    </Link>
                   </div>
                   <div
-                    className={`origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-primary focus:outline-none transition ease-out duration-100  ${active ? "transform opacity-100 scale-100" : "transform opacity-0 scale-95"}`}
+                    className={`origin-bottom-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-primary focus:outline-none transition ease-out duration-100  ${
+                      active
+                        ? "transform opacity-100 scale-100 z-50"
+                        : "transform opacity-0 scale-95"
+                    } hidden md:block`}
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="menu-button"
@@ -130,8 +147,8 @@ const Header = () => {
                   >
                     <div className="py-1">
                       <Link
-                        to="/"
-                        className=" block px-4 py-2 text-sm hover:bg-gray-secondary "
+                        to={`/p/${user.displayName}`}
+                        className=" block px-4 py-2 text-sm hover:bg-gray-secondary"
                         role="menuitem"
                         tabIndex="-1"
                         id="menu-item-2"
@@ -209,9 +226,15 @@ const Header = () => {
             )}
           </div>
         </div>
+          <span className="text-sm mr-5 absolute top-4 right-0 md:hidden" onClick={() => signOut(auth)}>Sign Out</span>
       </div>
     </header>
   );
 };
 
 export default Header;
+
+Header.propTypes = {
+  active: PropTypes.bool.isRequired,
+  setActive: PropTypes.func.isRequired,
+};
